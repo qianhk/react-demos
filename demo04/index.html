@@ -9,13 +9,16 @@
     <div id="example"></div>
     <script type="text/babel">
       var HelloMessage = React.createClass({
+        getDefaultProps: function() {
+            return {age : '33'};
+        },
         render: function() {
-          return <h1>Hello {this.props.name}</h1>;
+          return <h1>Hello {this.props.name} age={this.props.age}</h1>;
         }
       });
 
       ReactDOM.render(
-        <HelloMessage name="John" />,
+        <HelloMessage name="John2" />,
         document.getElementById('example')
       );
     </script>

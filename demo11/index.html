@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
     <script src="../build/jquery.min.js"></script>
-  </head>
-  <body>
-    <div id="example"></div>
-    <script type="text/babel">
-var UserGist = React.createClass({
-  getInitialState: function() {
-    return {
-      username: '',
-      lastGistUrl: ''
-    };
-  },
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var UserGist = React.createClass({
+        getInitialState: function () {
+            return {
+                username: 'defaultUserName',
+                lastGistUrl: 'last gist url',
+                repoName: 'repoName',
+            };
+        },
 
-  componentDidMount: function() {
-    $.get(this.props.source, function(result) {
-      var lastGist = result[0];
-      if (this.isMounted()) {
-        this.setState({
-          username: lastGist.owner.login,
-          lastGistUrl: lastGist.html_url
-        });
-      }
-    }.bind(this));
-  },
+        componentDidMount: function () {
+            $.get(this.props.source, function (result) {
+                // result.filter()
+                result.map(function (x) {
+                    console.log("repo item: " + x.name + " fork=" + x.fork);
+                });
+                result = result.filter(function (repo) {
+                    return !repo.fork;
+                });
+                result.map(function (x) {
+                    console.log("repo item2: " + x.name + " fork=" + x.fork);
+                });
+                var lastGist = result[0];
+                if (this.isMounted()) {
+                    this.setState({
+                        username: lastGist.owner.login,
+                        lastGistUrl: lastGist.html_url,
+                        repoName: lastGist.name,
+                    });
+                }
+            }.bind(this));
+        },
 
-  render: function() {
-    return (
-      <div>
-        {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>.
-      </div>
+        render: function () {
+            return (
+                    <div>
+                        {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>{this.state.repoName}</a>.
+                    </div>
+            );
+        }
+    });
+
+    ReactDOM.render(
+            <UserGist source="https://api.github.com/users/qianhk/repos"/>,
+            document.getElementById('example')
     );
-  }
-});
-
-ReactDOM.render(
-  <UserGist source="https://api.github.com/users/octocat/gists" />,
-  document.getElementById('example')
-);
-    </script>
-  </body>
+</script>
+</body>
 </html>
