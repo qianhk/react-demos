@@ -13,13 +13,14 @@ footer {
     background-color: khaki;
     justify-content: center;
     align-items: center;
+    max-height: 6em;
 }
 
 html,
 body {
     display: flex;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 }
 
 .HolyGrail-body {
@@ -38,8 +39,8 @@ body {
 
 .HolyGrail-nav, .HolyGrail-ads {
     display: flex;
-    /* 两个边栏的宽度设为12em */
-    flex: 0 0 12em;
+    /* 两个边栏的宽度设为10em */
+    flex: 0 0 10em;
     background-color: #ddffdd;
     justify-content: center;
     align-items: center;
@@ -49,4 +50,33 @@ body {
     display: flex;
     /* 导航放到最左边 */
     order: -1;
+}
+
+@media (max-width: 768px) {
+    .HolyGrail-body {
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .HolyGrail-nav,
+    .HolyGrail-ads,
+    .HolyGrail-content {
+        flex: auto;
+    }
+}
+
+.InputAddOn {
+    display: flex;
+    flex: 0 0 90%;
+    height: 3em;
+    align-items: center;
+    background-color: chocolate;
+}
+
+.InputAddOn-field {
+    display: flex;
+    flex: 1;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    height: 6em;
 }
