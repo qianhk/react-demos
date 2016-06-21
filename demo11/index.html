@@ -21,15 +21,15 @@
         componentDidMount: function () {
             $.get(this.props.source, function (result) {
                 // result.filter()
-                result.map(function (x) {
-                    console.log("repo item: " + x.name + " fork=" + x.fork);
-                });
+//                result.map(function (x) {
+//                    console.log("repo item: " + x.name + " fork=" + x.fork);
+//                });
                 result = result.filter(function (repo) {
                     return !repo.fork;
                 });
-                result.map(function (x) {
-                    console.log("repo item2: " + x.name + " fork=" + x.fork);
-                });
+//                result.map(function (x) {
+//                    console.log("repo item2: " + x.name + " fork=" + x.fork);
+//                });
                 var lastGist = result[0];
                 if (this.isMounted()) {
                     this.setState({
